@@ -1,0 +1,51 @@
+---
+title: "Developing Data Products Shiny Application"
+author: "LonePine"
+date: "April 2, 2016"
+output: html_document
+---
+**(1)Exploratory data analysis and shiny application**
+In this analysis we perform an exploratory analysis on the ToothGrowth data in the R datasets package. We first load the datasets package in R and then load the ToothGrowth data.From the help function we find that the response is the length of teeth in each of 10 guinea pigs at each of three dose levels of Vitamin C (0.5, 1, and 2 mg) with each of two delivery methods (orange juice or ascorbic acid). We create a **shiny application** which loads a variable n for number of bins in the histogram for analysis of length of tooth. We perform initial analysis on the data using the following:
+
+```{r, echo=TRUE}
+library(datasets)
+library(plyr)
+help(ToothGrowth)
+## starting httpd help server ... done
+dim(ToothGrowth)
+## [1] 60  3
+summary(ToothGrowth)
+##       len        supp         dose      
+##  Min.   : 4.20   OJ:30   Min.   :0.500  
+##  1st Qu.:13.07   VC:30   1st Qu.:0.500  
+##  Median :19.25           Median :1.000  
+##  Mean   :18.81           Mean   :1.167  
+##  3rd Qu.:25.27           3rd Qu.:2.000  
+##  Max.   :33.90           Max.   :2.000
+
+```
+
+**(2)Basic Summary of the data **
+In this analysis we are looking at the effect of supplements OJ and VC on the toothgrowth among guinea pigs. The study is being performed to test the impact of amount of supplement on the toothgrowth which is expressed in length(mm). Let us take a look at the effect of one of the supplements OJ and how varying the dosage effects the length of toothgrowth.
+
+```{r, echo=TRUE}
+coplot(len ~ dose | supp, data = ToothGrowth, panel = panel.smooth, xlab = "ToothGrowth data: length Vs dose, given type of supplement", col = "blue")
+hist(ToothGrowth$len, col = "Yellow")
+abline(v = median(ToothGrowth$len),col = "blue", lwd = 4 )
+```
+
+
+```{r,echo=TRUE}
+boxplot(ToothGrowth$len ~ ToothGrowth$supp, col = c("pink", "grey"), main = "Effect of supplement on toothgrowth", xlab = "supplement( OJ or VC)", ylab = "length of tooth(mm)")
+```
+
+From the boxplot it appears the toothgrowth is more when the Vitamin C is administered with orange juice than with ascorbic acid and this could be because the guinea pigs liked the taste of juice better and therefore consumed more of the Vitamin C. Now let us take a summary of the impact of the doses of Vitamin C 0.5,1.0 and 2.0 mg on the toothgrowth.
+
+```{r,echo=TRUE}
+boxplot(ToothGrowth$len ~ ToothGrowth$dose, col = c("yellow", "orange", "green"), main = "Effect of dose on toothgrowth", xlab = "dose(0.5, 1.0, 2.0 mg)", ylab = "length of tooth(mm)")
+```
+We can see that the toothgrowth increases with the increase in dose of Vitamin C from 0.5mg to 2.0mg. 
+**(3)conclusion **
+We can conclude from the exploratory data analysis and hypothesis tests that the length of the toothgrowth increases with the increase in amount of Vitamin C administered. Also,the type of supplement used makes a smaller difference though orange juice seems to have been consumed better and contributed to better toothgrowth.
+**Works cited **
+Coplot function from 'Help(ToothGrowth)' menu of R studio dataset Toothgrowth.
