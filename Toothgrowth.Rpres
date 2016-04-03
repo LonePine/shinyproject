@@ -1,0 +1,45 @@
+Toothgrowth
+========================================================
+author:LonePine 
+date: April 2, 2016
+
+Slide 1
+========================================================
+
+1. Exploratory analysis on Toothgrowth data in the R datasets package.
+2. Load the datasets package in R and then load the ToothGrowth data.
+3. The response is the length of teeth in each of 10 guinea pigs. 
+
+
+Slide 2
+========================================================
+
+Each of three dose levels of Vitamin C (0.5, 1, and 2 mg) with each of two delivery methods (orange juice or ascorbic acid) is administered.
+```{r, echo=TRUE}
+library(datasets)
+dim(ToothGrowth)
+## [1] 60  3
+```
+
+Slide 3
+========================================================
+
+```{r, echo=TRUE}
+summary(ToothGrowth)
+```
+
+Slide 4
+===============================================================
+
+```{r, echo=TRUE}
+coplot(len ~ dose | supp, data = ToothGrowth, panel = panel.smooth, xlab = "ToothGrowth data: length Vs dose, given type of supplement", col = "blue")
+```
+
+Slide 5
+==================================================================
+
+```{r, echo=FALSE}
+hist(ToothGrowth$len, col = "Yellow")
+abline(v = median(ToothGrowth$len),col = "blue", lwd = 4 )
+
+```
